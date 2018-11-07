@@ -94,13 +94,12 @@ function makeCoffee(drinkType){
   setTimeout(changeToMug, 1500);
   setTimeout(changeToBeans, 4000);
   total = revenue(drinksOrdered, prices);
-  revenueMessage.html(total);
-
+  total = total.toFixed(2);
+  revenueMessage.hide().html(total).fadeIn('slow');
 }
 
 function revenue(drinksOrdered, prices) {
   let total = 0;
-
 
   for(let beverage = 0; beverage < drinksOrdered.length; beverage++) {
     bev = drinksOrdered[beverage];
