@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
   <!-- Google fonts link -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway" >
   <!-- Our CSS -->
   <link rel="stylesheet" href="static/coffee.css">
@@ -46,7 +47,7 @@
       </table>
 
       <h4>
-        Total: <span id="revenue"><!-- Revenue Message will show up here --></span>
+        Total: <span id="revenue"> 0 </span>
       </h4>
     </div>
   </div>
@@ -55,9 +56,18 @@
 
     // Set these variables to their DOM elements
 
-    const coffeeImage = document.querySelector('#coffee-image');
-    coffeeImage.setAttribute('src', './static/coffee_beans.jpg');
-    // const revenueMessage;
+    const coffeeImage = $('#coffee-image');
+    const espresso = $('#espresso');
+    const latte = $('#latte');
+    const hotChocolate = $('#hot-chocolate');
+    coffeeImage.attr('src', './static/coffee_beans.jpg');
+    coffeeImage.on('click', ()=>makeCoffee('brew'));
+    espresso.on('click', ()=>makeCoffee('espresso'));
+    latte.on('click', ()=>makeCoffee('latte'));
+    hotChocolate.on('click', ()=>makeCoffee('hot chocolate'));
+
+    const revenueMessage = $('#revenue');
+   
 
     // use this JavaScript object in further study step
 
@@ -67,6 +77,38 @@
       'latte': 4.15,
       'hot chocolate': 2.50
     };
+
+    const drinksOrdered = [];
+
+function changeToMug() {
+  coffeeImage.attr('src', './static/coffee_mug.jpg');
+}
+
+function changeToBeans() {
+  coffeeImage.attr('src', './static/coffee_beans.jpg');
+}
+
+function makeCoffee(drinkType){
+  drinksOrdered.push(drinkType);
+  console.log(drinksOrdered);
+  setTimeout(changeToMug, 1500);
+  setTimeout(changeToBeans, 4000);
+  total = revenue(drinksOrdered, prices);
+  revenueMessage.html(total);
+
+}
+
+function revenue(drinksOrdered, prices) {
+  let total = 0;
+
+
+  for(let beverage = 0; beverage < drinksOrdered.length; beverage++) {
+    bev = drinksOrdered[beverage];
+    total += prices[bev];
+  }
+
+  return total;
+}
 
 
   </script>
